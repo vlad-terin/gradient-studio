@@ -1218,15 +1218,16 @@ export default function GradientStudio() {
                 {/* Shader Selector */}
                 <div>
                   <label className="block text-sm font-medium text-zinc-400 mb-2">Shader</label>
-                  <select
-                    value={selectedShader}
-                    onChange={(e) => handleShaderChange(e.target.value as ShaderType)}
-                    className="w-full bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    {Object.entries(shaderConfigs).map(([key, cfg]) => (
-                      <option key={key} value={key}>{cfg.name}</option>
-                    ))}
-                  </select>
+                  <Select value={selectedShader} onValueChange={(value) => handleShaderChange(value as ShaderType)}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(shaderConfigs).map(([key, cfg]) => (
+                        <SelectItem key={key} value={key}>{cfg.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* Colors Section */}
@@ -1295,13 +1296,12 @@ export default function GradientStudio() {
                     <label className="block text-sm font-medium text-zinc-400 mb-2">
                       Speed: {(params.speed || 0).toFixed(2)}
                     </label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="2"
-                      step="0.01"
-                      value={params.speed || 0}
-                      onChange={(e) => updateParam('speed', parseFloat(e.target.value))}
+                    <Slider
+                      value={[params.speed || 0]}
+                      onValueChange={(value) => updateParam('speed', value[0])}
+                      min={0}
+                      max={2}
+                      step={0.01}
                       className="w-full"
                     />
                   </div>
@@ -1313,13 +1313,12 @@ export default function GradientStudio() {
                     <label className="block text-sm font-medium text-zinc-400 mb-2">
                       Scale: {(params.scale || 1).toFixed(2)}
                     </label>
-                    <input
-                      type="range"
-                      min="0.1"
-                      max="3"
-                      step="0.01"
-                      value={params.scale || 1}
-                      onChange={(e) => updateParam('scale', parseFloat(e.target.value))}
+                    <Slider
+                      value={[params.scale || 1]}
+                      onValueChange={(value) => updateParam('scale', value[0])}
+                      min={0.1}
+                      max={3}
+                      step={0.01}
                       className="w-full"
                     />
                   </div>
@@ -1331,13 +1330,12 @@ export default function GradientStudio() {
                     <label className="block text-sm font-medium text-zinc-400 mb-2">
                       Distortion: {(params.distortion || 0).toFixed(2)}
                     </label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
-                      value={params.distortion || 0}
-                      onChange={(e) => updateParam('distortion', parseFloat(e.target.value))}
+                    <Slider
+                      value={[params.distortion || 0]}
+                      onValueChange={(value) => updateParam('distortion', value[0])}
+                      min={0}
+                      max={1}
+                      step={0.01}
                       className="w-full"
                     />
                   </div>
@@ -1349,13 +1347,12 @@ export default function GradientStudio() {
                     <label className="block text-sm font-medium text-zinc-400 mb-2">
                       Swirl: {(params.swirl || 0).toFixed(2)}
                     </label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
-                      value={params.swirl || 0}
-                      onChange={(e) => updateParam('swirl', parseFloat(e.target.value))}
+                    <Slider
+                      value={[params.swirl || 0]}
+                      onValueChange={(value) => updateParam('swirl', value[0])}
+                      min={0}
+                      max={1}
+                      step={0.01}
                       className="w-full"
                     />
                   </div>
@@ -1369,13 +1366,12 @@ export default function GradientStudio() {
                         <label className="block text-sm font-medium text-zinc-400 mb-2">
                           Grain Mixer: {(params.grainMixer || 0).toFixed(2)}
                         </label>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.01"
-                          value={params.grainMixer || 0}
-                          onChange={(e) => updateParam('grainMixer', parseFloat(e.target.value))}
+                        <Slider
+                          value={[params.grainMixer || 0]}
+                          onValueChange={(value) => updateParam('grainMixer', value[0])}
+                          min={0}
+                          max={1}
+                          step={0.01}
                           className="w-full"
                         />
                       </div>
@@ -1385,13 +1381,12 @@ export default function GradientStudio() {
                         <label className="block text-sm font-medium text-zinc-400 mb-2">
                           Grain Overlay: {(params.grainOverlay || 0).toFixed(2)}
                         </label>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.01"
-                          value={params.grainOverlay || 0}
-                          onChange={(e) => updateParam('grainOverlay', parseFloat(e.target.value))}
+                        <Slider
+                          value={[params.grainOverlay || 0]}
+                          onValueChange={(value) => updateParam('grainOverlay', value[0])}
+                          min={0}
+                          max={1}
+                          step={0.01}
                           className="w-full"
                         />
                       </div>
@@ -1411,26 +1406,26 @@ export default function GradientStudio() {
                         {param}: {typeof params[param] === 'number' ? params[param]?.toFixed(2) : params[param]}
                       </label>
                       {typeof config.defaultParams[param] === 'number' ? (
-                        <input
-                          type="range"
-                          min="0"
-                          max="2"
-                          step="0.01"
-                          value={params[param] || 0}
-                          onChange={(e) => updateParam(param, parseFloat(e.target.value))}
+                        <Slider
+                          value={[params[param] || 0]}
+                          onValueChange={(value) => updateParam(param, value[0])}
+                          min={0}
+                          max={2}
+                          step={0.01}
                           className="w-full"
                         />
                       ) : (
-                        <select
-                          value={params[param] || ''}
-                          onChange={(e) => updateParam(param, e.target.value)}
-                          className="w-full bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2 text-sm"
-                        >
-                          <option value="circle">Circle</option>
-                          <option value="square">Square</option>
-                          <option value="diamond">Diamond</option>
-                          <option value="triangle">Triangle</option>
-                        </select>
+                        <Select value={params[param] || ''} onValueChange={(value) => updateParam(param, value)}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="circle">Circle</SelectItem>
+                            <SelectItem value="square">Square</SelectItem>
+                            <SelectItem value="diamond">Diamond</SelectItem>
+                            <SelectItem value="triangle">Triangle</SelectItem>
+                          </SelectContent>
+                        </Select>
                       )}
                     </div>
                   );
@@ -1462,15 +1457,16 @@ export default function GradientStudio() {
             {/* Shader Selector */}
             <div>
               <label className="block text-sm font-medium text-zinc-400 mb-2">Shader</label>
-              <select
-                value={selectedShader}
-                onChange={(e) => handleShaderChange(e.target.value as ShaderType)}
-                className="w-full bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {Object.entries(shaderConfigs).map(([key, cfg]) => (
-                  <option key={key} value={key}>{cfg.name}</option>
-                ))}
-              </select>
+              <Select value={selectedShader} onValueChange={(value) => handleShaderChange(value as ShaderType)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(shaderConfigs).map(([key, cfg]) => (
+                    <SelectItem key={key} value={key}>{cfg.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Colors Section */}
@@ -1539,13 +1535,12 @@ export default function GradientStudio() {
                 <label className="block text-sm font-medium text-zinc-400 mb-2">
                   Speed: {(params.speed || 0).toFixed(2)}
                 </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="2"
-                  step="0.01"
-                  value={params.speed || 0}
-                  onChange={(e) => updateParam('speed', parseFloat(e.target.value))}
+                <Slider
+                  value={[params.speed || 0]}
+                  onValueChange={(value) => updateParam('speed', value[0])}
+                  min={0}
+                  max={2}
+                  step={0.01}
                   className="w-full"
                 />
               </div>
@@ -1557,13 +1552,12 @@ export default function GradientStudio() {
                 <label className="block text-sm font-medium text-zinc-400 mb-2">
                   Scale: {(params.scale || 1).toFixed(2)}
                 </label>
-                <input
-                  type="range"
-                  min="0.1"
-                  max="3"
-                  step="0.01"
-                  value={params.scale || 1}
-                  onChange={(e) => updateParam('scale', parseFloat(e.target.value))}
+                <Slider
+                  value={[params.scale || 1]}
+                  onValueChange={(value) => updateParam('scale', value[0])}
+                  min={0.1}
+                  max={3}
+                  step={0.01}
                   className="w-full"
                 />
               </div>
@@ -1575,13 +1569,12 @@ export default function GradientStudio() {
                 <label className="block text-sm font-medium text-zinc-400 mb-2">
                   Distortion: {(params.distortion || 0).toFixed(2)}
                 </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={params.distortion || 0}
-                  onChange={(e) => updateParam('distortion', parseFloat(e.target.value))}
+                <Slider
+                  value={[params.distortion || 0]}
+                  onValueChange={(value) => updateParam('distortion', value[0])}
+                  min={0}
+                  max={1}
+                  step={0.01}
                   className="w-full"
                 />
               </div>
@@ -1593,13 +1586,12 @@ export default function GradientStudio() {
                 <label className="block text-sm font-medium text-zinc-400 mb-2">
                   Swirl: {(params.swirl || 0).toFixed(2)}
                 </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={params.swirl || 0}
-                  onChange={(e) => updateParam('swirl', parseFloat(e.target.value))}
+                <Slider
+                  value={[params.swirl || 0]}
+                  onValueChange={(value) => updateParam('swirl', value[0])}
+                  min={0}
+                  max={1}
+                  step={0.01}
                   className="w-full"
                 />
               </div>
@@ -1613,13 +1605,12 @@ export default function GradientStudio() {
                     <label className="block text-sm font-medium text-zinc-400 mb-2">
                       Grain Mixer: {(params.grainMixer || 0).toFixed(2)}
                     </label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
-                      value={params.grainMixer || 0}
-                      onChange={(e) => updateParam('grainMixer', parseFloat(e.target.value))}
+                    <Slider
+                      value={[params.grainMixer || 0]}
+                      onValueChange={(value) => updateParam('grainMixer', value[0])}
+                      min={0}
+                      max={1}
+                      step={0.01}
                       className="w-full"
                     />
                   </div>
@@ -1629,13 +1620,12 @@ export default function GradientStudio() {
                     <label className="block text-sm font-medium text-zinc-400 mb-2">
                       Grain Overlay: {(params.grainOverlay || 0).toFixed(2)}
                     </label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
-                      value={params.grainOverlay || 0}
-                      onChange={(e) => updateParam('grainOverlay', parseFloat(e.target.value))}
+                    <Slider
+                      value={[params.grainOverlay || 0]}
+                      onValueChange={(value) => updateParam('grainOverlay', value[0])}
+                      min={0}
+                      max={1}
+                      step={0.01}
                       className="w-full"
                     />
                   </div>
@@ -1655,26 +1645,26 @@ export default function GradientStudio() {
                     {param}: {typeof params[param] === 'number' ? params[param]?.toFixed(2) : params[param]}
                   </label>
                   {typeof config.defaultParams[param] === 'number' ? (
-                    <input
-                      type="range"
-                      min="0"
-                      max="2"
-                      step="0.01"
-                      value={params[param] || 0}
-                      onChange={(e) => updateParam(param, parseFloat(e.target.value))}
+                    <Slider
+                      value={[params[param] || 0]}
+                      onValueChange={(value) => updateParam(param, value[0])}
+                      min={0}
+                      max={2}
+                      step={0.01}
                       className="w-full"
                     />
                   ) : (
-                    <select
-                      value={params[param] || ''}
-                      onChange={(e) => updateParam(param, e.target.value)}
-                      className="w-full bg-zinc-700 border border-zinc-600 rounded-lg px-3 py-2 text-sm"
-                    >
-                      <option value="circle">Circle</option>
-                      <option value="square">Square</option>
-                      <option value="diamond">Diamond</option>
-                      <option value="triangle">Triangle</option>
-                    </select>
+                    <Select value={params[param] || ''} onValueChange={(value) => updateParam(param, value)}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="circle">Circle</SelectItem>
+                        <SelectItem value="square">Square</SelectItem>
+                        <SelectItem value="diamond">Diamond</SelectItem>
+                        <SelectItem value="triangle">Triangle</SelectItem>
+                      </SelectContent>
+                    </Select>
                   )}
                 </div>
               );
@@ -1705,14 +1695,15 @@ export default function GradientStudio() {
             <div className="flex items-center justify-between p-4 border-b border-zinc-700">
               <Drawer.Title className="text-lg font-semibold">Showcase</Drawer.Title>
               <div className="flex items-center gap-2">
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as 'newest' | 'popular')}
-                  className="bg-zinc-700 border border-zinc-600 rounded px-2 py-1 text-sm"
-                >
-                  <option value="newest">Newest</option>
-                  <option value="popular">Popular</option>
-                </select>
+                <Select value={sortBy} onValueChange={(value) => setSortBy(value as 'newest' | 'popular')}>
+                  <SelectTrigger className="bg-zinc-700 border border-zinc-600 rounded px-2 py-1 text-sm w-auto">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="newest">Newest</SelectItem>
+                    <SelectItem value="popular">Popular</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
