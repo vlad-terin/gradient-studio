@@ -2,16 +2,26 @@
   "name": "gradient-studio",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "bin": {
+    "gradient-studio": "./dist/cli.js"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cli": "node src/cli.ts",
+    "mcp": "node src/mcp-server.js"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@paper-design/shaders-react": "^0.0.71",
+    "commander": "^12.1.0",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
