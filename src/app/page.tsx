@@ -988,6 +988,7 @@ export default function GradientStudio() {
     const currentY = e.touches[0].clientY;
     const currentX = e.touches[0].clientX;
     const diffY = touchStartY.current - currentY;
+    const diffX = touchStartX.current - currentX;
     const screenWidth = window.innerWidth;
     
     // Swipe up threshold (50px)
@@ -1000,6 +1001,13 @@ export default function GradientStudio() {
         // Right side - open hamburger menu drawer
         setIsMobileMenuOpen(true);
       }
+      touchStartY.current = null;
+      touchStartX.current = null;
+    }
+    
+    // Swipe right threshold (50px) - opens hamburger menu drawer
+    if (diffX > 50) {
+      setIsMobileMenuOpen(true);
       touchStartY.current = null;
       touchStartX.current = null;
     }
