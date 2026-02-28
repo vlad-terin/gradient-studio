@@ -143,6 +143,7 @@ interface ShaderConfig {
   hasScale: boolean;
   hasGrain: boolean;
   params: string[];
+  category?: 'lumina' | 'webgl';
 }
 
 // Common sizing params
@@ -464,6 +465,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaAurora: {
     name: 'Lumina Aurora',
@@ -484,6 +486,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaGrainy: {
     name: 'Lumina Grainy',
@@ -504,6 +507,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaDeepSea: {
     name: 'Lumina Deep Sea',
@@ -524,6 +528,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaHolographic: {
     name: 'Lumina Holographic',
@@ -544,6 +549,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaRadial: {
     name: 'Lumina Radial',
@@ -564,6 +570,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaCosmic: {
     name: 'Lumina Cosmic',
@@ -584,6 +591,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaPlasma: {
     name: 'Lumina Plasma',
@@ -604,6 +612,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   luminaTerrain: {
     name: 'Lumina Terrain',
@@ -624,6 +633,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: true,
     hasGrain: false,
     params: ['noiseStrength', 'complexity', 'distortion'],
+    category: 'lumina',
   },
   // WebGL gradients
   webglMesh: {
@@ -644,6 +654,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglAurora: {
     name: 'WebGL Aurora',
@@ -663,6 +674,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglGrainy: {
     name: 'WebGL Grainy',
@@ -682,6 +694,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglDeepSea: {
     name: 'WebGL Deep Sea',
@@ -701,6 +714,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglHolographic: {
     name: 'WebGL Holographic',
@@ -720,6 +734,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglKaleidoscope: {
     name: 'WebGL Kaleidoscope',
@@ -739,6 +754,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglLiquid: {
     name: 'WebGL Liquid',
@@ -758,6 +774,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglSpectrum: {
     name: 'WebGL Spectrum',
@@ -777,6 +794,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglNeon: {
     name: 'WebGL Neon',
@@ -796,6 +814,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglGalaxy: {
     name: 'WebGL Galaxy',
@@ -815,6 +834,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglBokeh: {
     name: 'WebGL Bokeh',
@@ -834,6 +854,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglFire: {
     name: 'WebGL Fire',
@@ -853,6 +874,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglIce: {
     name: 'WebGL Ice',
@@ -872,6 +894,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglCandy: {
     name: 'WebGL Candy',
@@ -891,6 +914,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
   webglNoise: {
     name: 'WebGL Noise',
@@ -910,6 +934,7 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasScale: false,
     hasGrain: false,
     params: ['noise', 'seed'],
+    category: 'webgl',
   },
 };
 
@@ -1171,7 +1196,7 @@ export default function GradientStudio() {
           </Drawer.Trigger>
           <Drawer.Portal>
             <Drawer.Overlay className="fixed inset-0 bg-black/50 z-40 md:hidden" />
-            <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 h-[85vh] rounded-t-[10px] bg-zinc-800 border-t border-zinc-700 md:hidden">
+            <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 h-[50vh] rounded-t-[10px] bg-zinc-800 border-t border-zinc-700 md:hidden">
               <Drawer.Handle className="mx-auto mb-4 h-1 w-12 rounded-full bg-zinc-600" />
               
               {/* Mobile Drawer Header */}
@@ -1673,7 +1698,7 @@ export default function GradientStudio() {
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/50 z-40" />
           <Drawer.Content className={isMobile 
-            ? "fixed inset-x-0 bottom-0 z-50 h-[85vh] rounded-t-[10px] bg-zinc-800 border-t border-zinc-700 flex flex-col"
+            ? "fixed inset-x-0 bottom-0 z-50 h-[50vh] rounded-t-[10px] bg-zinc-800 border-t border-zinc-700 flex flex-col"
             : "fixed right-0 top-0 bottom-0 z-50 w-full max-w-md bg-zinc-800 border-l border-zinc-700 flex flex-col"
           }>
             <Drawer.Handle className="mx-auto my-4 h-1 w-12 rounded-full bg-zinc-600" />
@@ -1761,6 +1786,223 @@ export default function GradientStudio() {
                   })}
                 </div>
               )}
+            </div>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
+
+      {/* Mobile Controls Drawer - opens from right side via swipe */}
+      <Drawer.Root open={controlsOpen} onOpenChange={setControlsOpen} direction="right">
+        <Drawer.Portal>
+          <Drawer.Overlay className="fixed inset-0 bg-black/50 z-40 md:hidden" />
+          <Drawer.Content className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-sm bg-zinc-800 border-l border-zinc-700 flex flex-col md:hidden">
+            <Drawer.Handle className="mx-auto my-4 h-1 w-12 rounded-full bg-zinc-600" />
+            
+            {/* Controls Header */}
+            <div className="flex items-center justify-between p-4 border-b border-zinc-700">
+              <Drawer.Title className="text-lg font-semibold">Controls</Drawer.Title>
+              <Button variant="ghost" size="icon" onClick={() => setControlsOpen(false)}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </Button>
+            </div>
+
+            {/* Controls Content */}
+            <div className="flex-1 p-4 overflow-y-auto space-y-6">
+              {/* Shader Selector */}
+              <div>
+                <label className="block text-sm font-medium text-zinc-400 mb-2">Shader</label>
+                <Select value={selectedShader} onValueChange={(v) => handleShaderChange(v as ShaderType)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(shaderConfigs).map(([key, cfg]) => (
+                      <SelectItem key={key} value={key}>{cfg.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Colors Section */}
+              {config.hasColors && (
+                <div>
+                  <label className="block text-sm font-medium text-zinc-400 mb-2">Colors</label>
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {Object.keys(colorPalettes).filter(p => p !== 'custom').map(palette => (
+                      <Button
+                        key={palette}
+                        variant={activePalette === palette ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handlePaletteChange(palette)}
+                        className="text-xs"
+                      >
+                        {palette}
+                      </Button>
+                    ))}
+                  </div>
+                  <div className="space-y-2">
+                    {params.colors?.map((color: string, index: number) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={color}
+                          onChange={(e) => handleColorChange(index, e.target.value)}
+                          className="w-8 h-8 rounded cursor-pointer border-0"
+                        />
+                        <input
+                          type="text"
+                          value={color}
+                          onChange={(e) => handleColorChange(index, e.target.value)}
+                          className="flex-1 bg-zinc-700 border border-zinc-600 rounded px-2 py-1 text-sm font-mono"
+                        />
+                        {params.colors!.length > 2 && (
+                          <Button variant="ghost" size="sm" onClick={() => removeColor(index)}>×</Button>
+                        )}
+                      </div>
+                    ))}
+                    {params.colors && params.colors.length < 10 && (
+                      <Button variant="outline" size="sm" onClick={addColor} className="w-full">+ Add Color</Button>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Speed Control */}
+              {config.hasSpeed && (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">Speed: {(params.speed || 0).toFixed(2)}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Slider
+                      value={[params.speed || 0]}
+                      onValueChange={([v]) => updateParam('speed', v)}
+                      min={0}
+                      max={2}
+                      step={0.01}
+                    />
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Scale Control */}
+              {config.hasScale && (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">Scale: {(params.scale || 1).toFixed(2)}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Slider
+                      value={[params.scale || 1]}
+                      onValueChange={([v]) => updateParam('scale', v)}
+                      min={0.1}
+                      max={3}
+                      step={0.01}
+                    />
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Distortion Control */}
+              {config.hasDistortion && (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">Distortion: {(params.distortion || 0).toFixed(2)}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Slider
+                      value={[params.distortion || 0]}
+                      onValueChange={([v]) => updateParam('distortion', v)}
+                      min={0}
+                      max={1}
+                      step={0.01}
+                    />
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Lumina-specific controls */}
+              {config.category === 'lumina' && (
+                <>
+                  {params.noiseStrength !== undefined && (
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-medium">Noise: {(params.noiseStrength || 0).toFixed(2)}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Slider
+                          value={[params.noiseStrength || 0]}
+                          onValueChange={([v]) => updateParam('noiseStrength', v)}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                        />
+                      </CardContent>
+                    </Card>
+                  )}
+                  {params.complexity !== undefined && (
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-medium">Complexity: {(params.complexity || 1).toFixed(2)}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Slider
+                          value={[params.complexity || 1]}
+                          onValueChange={([v]) => updateParam('complexity', v)}
+                          min={0.1}
+                          max={3}
+                          step={0.01}
+                        />
+                      </CardContent>
+                    </Card>
+                  )}
+                </>
+              )}
+
+              {/* WebGL-specific controls */}
+              {config.category === 'webgl' && (
+                <>
+                  {params.noise !== undefined && (
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-medium">Noise: {(params.noise || 0).toFixed(2)}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Slider
+                          value={[params.noise || 0]}
+                          onValueChange={([v]) => updateParam('noise', v)}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                        />
+                      </CardContent>
+                    </Card>
+                  )}
+                  {params.seed !== undefined && (
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-medium">Seed: {params.seed}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Slider
+                          value={[params.seed || 0]}
+                          onValueChange={([v]) => updateParam('seed', Math.floor(v))}
+                          min={0}
+                          max={1000}
+                          step={1}
+                        />
+                      </CardContent>
+                    </Card>
+                  )}
+                </>
+              )}
+
+              {/* Reset Button */}
+              <Button variant="outline" onClick={resetParams} className="w-full">
+                Reset to Defaults
+              </Button>
             </div>
           </Drawer.Content>
         </Drawer.Portal>
