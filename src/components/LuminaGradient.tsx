@@ -470,7 +470,7 @@ export default function LuminaGradient({
       cancelAnimationFrame(animationRef.current);
       gl.deleteProgram(program);
     };
-  }, [colors, mode, noiseStrength, scale, complexity, distortion]);
+  }, [colors, mode, noiseStrength, scale, complexity, distortion, speed]);
 
   return <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />;
 }
