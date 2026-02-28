@@ -1195,7 +1195,7 @@ export default function GradientStudio() {
         <Drawer.Root open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} direction="bottom">
           <Drawer.Trigger asChild>
             <button
-              className="absolute bottom-6 right-6 bg-black/70 backdrop-blur-sm p-3 rounded-full hover:bg-black/90 transition-colors shadow-lg z-30"
+              className="hidden md:block absolute bottom-6 right-6 bg-black/70 backdrop-blur-sm p-3 rounded-full hover:bg-black/90 transition-colors shadow-lg z-30"
               aria-label="Open menu"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -307,6 +307,17 @@ const modeToIndex: Record<GradientMode, number> = {
 
 function GradientPlane({ mode, colors, animate, speed, noise, seed }: GradientCanvasProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const speedRef = useRef(speed);
+  const animateRef = useRef(animate);
+  
+  // Keep refs updated without triggering re-renders
+  useMemo(() => {
+    speedRef.current = speed;
+  }, [speed]);
+  
+  useMemo(() => {
+    animateRef.current = animate;
+  }, [animate]);
   
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
@@ -323,8 +334,8 @@ function GradientPlane({ mode, colors, animate, speed, noise, seed }: GradientCa
     
     const mat = materialRef.current;
     
-    if (animate) {
-      mat.uniforms.uTime.value += delta * speed;
+    if (animateRef.current) {
+      mat.uniforms.uTime.value += delta * speedRef.current;
     }
     
     if (colors[0]) mat.uniforms.uColor1.value.set(colors[0]);

@@ -382,6 +382,12 @@ export default function LuminaGradient({
   const animationRef = useRef<number>(0);
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const programRef = useRef<WebGLProgram | null>(null);
+  const speedRef = useRef(speed);
+
+  // Keep speed ref updated without triggering re-renders
+  useEffect(() => {
+    speedRef.current = speed;
+  }, [speed]);
   const timeRef = useRef(0);
 
   useEffect(() => {
@@ -452,7 +458,7 @@ export default function LuminaGradient({
     window.addEventListener('resize', resize);
 
     const animate = () => {
-      timeRef.current += 0.01 * speed;
+      timeRef.current += 0.01 * speedRef.current;
       gl.uniform1f(gl.getUniformLocation(program, 'uTime'), timeRef.current);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       animationRef.current = requestAnimationFrame(animate);
@@ -464,7 +470,7 @@ export default function LuminaGradient({
       cancelAnimationFrame(animationRef.current);
       gl.deleteProgram(program);
     };
-  }, [colors, mode, noiseStrength, speed, scale, complexity, distortion]);
+  }, [colors, mode, noiseStrength, scale, complexity, distortion]);
 
   return <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />;
 }
