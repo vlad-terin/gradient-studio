@@ -605,6 +605,23 @@ export default function GradientStudio() {
           </button>
         </div>
 
+        {/* Bouncing Arrow - visible on mobile, indicates swipe to open showcase */}
+        {isMobile && !showcaseOpen && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 md:hidden flex flex-col items-center gap-2 pointer-events-none">
+            <span className="text-xs text-white/70 text-center">Swipe up to open Showcase</span>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-8 w-8 text-white/70 animate-bounce" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+            </svg>
+          </div>
+        )}
+
         {/* Mobile Menu Button - visible only on mobile */}
         <Drawer.Root open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} direction="bottom">
           <Drawer.Trigger asChild>
@@ -1115,11 +1132,14 @@ export default function GradientStudio() {
         </div>
       )}
 
-      {/* Showcase Drawer */}
-      <Drawer.Root open={showcaseOpen} onOpenChange={setShowcaseOpen} direction="right">
+      {/* Showcase Drawer - direction="bottom" on mobile, "right" on desktop */}
+      <Drawer.Root open={showcaseOpen} onOpenChange={setShowcaseOpen} direction={isMobile ? 'bottom' : 'right'}>
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/50 z-40" />
-          <Drawer.Content className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-md bg-zinc-800 border-l border-zinc-700 flex flex-col">
+          <Drawer.Content className={isMobile 
+            ? "fixed inset-x-0 bottom-0 z-50 h-[85vh] rounded-t-[10px] bg-zinc-800 border-t border-zinc-700 flex flex-col"
+            : "fixed right-0 top-0 bottom-0 z-50 w-full max-w-md bg-zinc-800 border-l border-zinc-700 flex flex-col"
+          }>
             <Drawer.Handle className="mx-auto my-4 h-1 w-12 rounded-full bg-zinc-600" />
             
             {/* Showcase Header */}
