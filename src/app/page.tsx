@@ -20,6 +20,12 @@ import {
   StaticRadialGradient,
 } from '@paper-design/shaders-react';
 import { ShaderSizingParams, ShaderMotionParams } from '@paper-design/shaders';
+import LuminaGradient from '@/components/LuminaGradient';
+import WebGLGradient from '@/components/WebGLGradient';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Types for saved gradients
 interface SavedGradient {
@@ -100,7 +106,31 @@ type ShaderType =
   | 'water'
   | 'grainGradient'
   | 'staticMeshGradient'
-  | 'staticRadialGradient';
+  | 'staticRadialGradient'
+  | 'luminaMesh'
+  | 'luminaAurora'
+  | 'luminaGrainy'
+  | 'luminaDeepSea'
+  | 'luminaHolographic'
+  | 'luminaRadial'
+  | 'luminaCosmic'
+  | 'luminaPlasma'
+  | 'luminaTerrain'
+  | 'webglMesh'
+  | 'webglAurora'
+  | 'webglGrainy'
+  | 'webglDeepSea'
+  | 'webglHolographic'
+  | 'webglKaleidoscope'
+  | 'webglLiquid'
+  | 'webglSpectrum'
+  | 'webglNeon'
+  | 'webglGalaxy'
+  | 'webglBokeh'
+  | 'webglFire'
+  | 'webglIce'
+  | 'webglCandy'
+  | 'webglNoise';
 
 interface ShaderConfig {
   name: string;
@@ -414,6 +444,473 @@ const shaderConfigs: Record<ShaderType, ShaderConfig> = {
     hasGrain: true,
     params: ['focalX', 'focalY', 'radius', 'grainMixer', 'grainOverlay'],
   },
+  // Lumina gradients
+  luminaMesh: {
+    name: 'Lumina Mesh',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#8b5cf6', '#ec4899', '#3b82f6', '#10b981', '#f59e0b'],
+      mode: 'mesh',
+      noiseStrength: 0.2,
+      speed: 1,
+      scale: 1,
+      complexity: 1,
+      distortion: 1,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaAurora: {
+    name: 'Lumina Aurora',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#00ff87', '#60efff', '#ff00ff', '#bd00ff', '#00ff00'],
+      mode: 'aurora',
+      noiseStrength: 0.3,
+      speed: 0.8,
+      scale: 1.2,
+      complexity: 1.5,
+      distortion: 0.8,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaGrainy: {
+    name: 'Lumina Grainy',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#f72585', '#7209b7', '#3a0ca3', '#4361ee', '#4cc9f0'],
+      mode: 'grainy',
+      noiseStrength: 0.5,
+      speed: 0.5,
+      scale: 1,
+      complexity: 2,
+      distortion: 0.5,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaDeepSea: {
+    name: 'Lumina Deep Sea',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#0077b6', '#00b4d8', '#90e0ef', '#023e8a', '#03045e'],
+      mode: 'deepSea',
+      noiseStrength: 0.25,
+      speed: 0.6,
+      scale: 1,
+      complexity: 1.2,
+      distortion: 0.7,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaHolographic: {
+    name: 'Lumina Holographic',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'],
+      mode: 'holographic',
+      noiseStrength: 0.15,
+      speed: 1.2,
+      scale: 1.5,
+      complexity: 1.8,
+      distortion: 0.6,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaRadial: {
+    name: 'Lumina Radial',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#ee9ca7', '#ffdde1', '#8ec5fc', '#e0c3fc'],
+      mode: 'radial',
+      noiseStrength: 0.2,
+      speed: 0.7,
+      scale: 1,
+      complexity: 1,
+      distortion: 0.4,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaCosmic: {
+    name: 'Lumina Cosmic',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#0f0c29', '#302b63', '#24243e', '#8e44ad', '#c0392b'],
+      mode: 'cosmic',
+      noiseStrength: 0.35,
+      speed: 0.9,
+      scale: 1.3,
+      complexity: 2.5,
+      distortion: 0.9,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaPlasma: {
+    name: 'Lumina Plasma',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#ff0000', '#ff3300', '#ff6600', '#ff9900', '#ffcc00'],
+      mode: 'plasma',
+      noiseStrength: 0.4,
+      speed: 1.5,
+      scale: 1,
+      complexity: 2,
+      distortion: 1,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  luminaTerrain: {
+    name: 'Lumina Terrain',
+    component: LuminaGradient,
+    defaultParams: {
+      colors: ['#2d6a4f', '#40916c', '#52b788', '#74c69d', '#95d5b2'],
+      mode: 'terrain',
+      noiseStrength: 0.45,
+      speed: 0.4,
+      scale: 0.8,
+      complexity: 3,
+      distortion: 0.85,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: true,
+    hasSwirl: false,
+    hasScale: true,
+    hasGrain: false,
+    params: ['noiseStrength', 'complexity', 'distortion'],
+  },
+  // WebGL gradients
+  webglMesh: {
+    name: 'WebGL Mesh',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7'],
+      mode: 'mesh',
+      animate: true,
+      speed: 1,
+      noise: 0.2,
+      seed: 42,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglAurora: {
+    name: 'WebGL Aurora',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#00ff87', '#60efff', '#ff00ff', '#bd00ff', '#00ff00'],
+      mode: 'aurora',
+      animate: true,
+      speed: 0.8,
+      noise: 0.3,
+      seed: 123,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglGrainy: {
+    name: 'WebGL Grainy',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#f72585', '#7209b7', '#3a0ca3', '#4361ee', '#4cc9f0'],
+      mode: 'grainy',
+      animate: true,
+      speed: 0.5,
+      noise: 0.6,
+      seed: 456,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglDeepSea: {
+    name: 'WebGL Deep Sea',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#0077b6', '#00b4d8', '#90e0ef', '#023e8a', '#03045e'],
+      mode: 'deep-sea',
+      animate: true,
+      speed: 0.6,
+      noise: 0.25,
+      seed: 789,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglHolographic: {
+    name: 'WebGL Holographic',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'],
+      mode: 'holographic',
+      animate: true,
+      speed: 1.2,
+      noise: 0.15,
+      seed: 321,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglKaleidoscope: {
+    name: 'WebGL Kaleidoscope',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#e74c3c', '#9b59b6', '#3498db', '#1abc9c', '#f39c12'],
+      mode: 'kaleidoscope',
+      animate: true,
+      speed: 0.9,
+      noise: 0.2,
+      seed: 654,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglLiquid: {
+    name: 'WebGL Liquid',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#667eea', '#764ba2', '#f093fb', '#f5576c'],
+      mode: 'liquid',
+      animate: true,
+      speed: 1.1,
+      noise: 0.35,
+      seed: 987,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglSpectrum: {
+    name: 'WebGL Spectrum',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#ff0000', '#ff7700', '#ffff00', '#00ff00', '#0000ff', '#8b00ff'],
+      mode: 'spectrum',
+      animate: true,
+      speed: 0.7,
+      noise: 0.1,
+      seed: 111,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglNeon: {
+    name: 'WebGL Neon',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#f72585', '#7209b7', '#3a0ca3', '#4361ee', '#4cc9f0'],
+      mode: 'neon',
+      animate: true,
+      speed: 1.3,
+      noise: 0.2,
+      seed: 222,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglGalaxy: {
+    name: 'WebGL Galaxy',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#0f0c29', '#302b63', '#24243e', '#8e44ad', '#c0392b'],
+      mode: 'galaxy',
+      animate: true,
+      speed: 0.5,
+      noise: 0.4,
+      seed: 333,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglBokeh: {
+    name: 'WebGL Bokeh',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#ff9a9e', '#fecfef', '#a18cd1', '#fbc2eb'],
+      mode: 'bokeh',
+      animate: true,
+      speed: 0.4,
+      noise: 0.5,
+      seed: 444,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglFire: {
+    name: 'WebGL Fire',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#ff0000', '#ff3300', '#ff6600', '#ff9900', '#ffcc00'],
+      mode: 'fire',
+      animate: true,
+      speed: 1.4,
+      noise: 0.3,
+      seed: 555,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglIce: {
+    name: 'WebGL Ice',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#00b4d8', '#90e0ef', '#caf0f8', '#0077b6', '#03045e'],
+      mode: 'ice',
+      animate: true,
+      speed: 0.6,
+      noise: 0.25,
+      seed: 666,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglCandy: {
+    name: 'WebGL Candy',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'],
+      mode: 'candy',
+      animate: true,
+      speed: 1.0,
+      noise: 0.2,
+      seed: 777,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
+  webglNoise: {
+    name: 'WebGL Noise',
+    component: WebGLGradient,
+    defaultParams: {
+      colors: ['#2d3436', '#636e72', '#b2bec3', '#dfe6e9', '#ffffff'],
+      mode: 'noise',
+      animate: true,
+      speed: 0.3,
+      noise: 0.8,
+      seed: 888,
+    },
+    hasColors: true,
+    hasSpeed: true,
+    hasDistortion: false,
+    hasSwirl: false,
+    hasScale: false,
+    hasGrain: false,
+    params: ['noise', 'seed'],
+  },
 };
 
 // Predefined color palettes
@@ -436,11 +933,13 @@ export default function GradientStudio() {
   const [showControls, setShowControls] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showcaseOpen, setShowcaseOpen] = useState(false);
+  const [controlsOpen, setControlsOpen] = useState(false);
   const [savedGradients, setSavedGradients] = useState<SavedGradient[]>([]);
   const [likedIds, setLikedIds] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'newest' | 'popular'>('newest');
   const [isMobile, setIsMobile] = useState(false);
   const touchStartY = useRef<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -452,26 +951,38 @@ export default function GradientStudio() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Touch swipe-up gesture detection
+  // Touch swipe-up gesture detection for left/right sides
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
+    touchStartX.current = e.touches[0].clientX;
   }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (touchStartY.current === null || !isMobile) return;
+    if (touchStartY.current === null || touchStartX.current === null) return;
     
     const currentY = e.touches[0].clientY;
-    const diff = touchStartY.current - currentY;
+    const currentX = e.touches[0].clientX;
+    const diffY = touchStartY.current - currentY;
+    const screenWidth = window.innerWidth;
     
     // Swipe up threshold (50px)
-    if (diff > 50) {
-      setShowcaseOpen(true);
+    if (diffY > 50) {
+      // Determine which side based on touch position
+      if (touchStartX.current < screenWidth / 2) {
+        // Left side - open showcase
+        setShowcaseOpen(true);
+      } else {
+        // Right side - open controls
+        setControlsOpen(true);
+      }
       touchStartY.current = null;
+      touchStartX.current = null;
     }
-  }, [isMobile]);
+  }, []);
 
   const handleTouchEnd = useCallback(() => {
     touchStartY.current = null;
+    touchStartX.current = null;
   }, []);
 
   // Load saved data on mount
@@ -605,20 +1116,45 @@ export default function GradientStudio() {
           </button>
         </div>
 
-        {/* Bouncing Arrow - visible on mobile, indicates swipe to open showcase */}
-        {isMobile && !showcaseOpen && (
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 md:hidden flex flex-col items-center gap-2 pointer-events-none">
-            <span className="text-xs text-white/70 text-center">Swipe up to open Showcase</span>
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              className="h-8 w-8 text-white/70 animate-bounce" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor" 
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
+        {/* Bouncing Arrows - visible on mobile, indicates swipe to open drawers */}
+        {isMobile && (
+          <div className="absolute inset-0 pointer-events-none md:hidden flex">
+            {/* Left side - Showcase */}
+            <div className="w-1/2 flex flex-col items-center justify-end pb-8">
+              {!showcaseOpen && (
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-xs text-white/70 text-center">Showcase</span>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-8 w-8 text-white/70 animate-bounce" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                  </svg>
+                </div>
+              )}
+            </div>
+            {/* Right side - Controls */}
+            <div className="w-1/2 flex flex-col items-center justify-end pb-8">
+              {!controlsOpen && (
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-xs text-white/70 text-center">Controls</span>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-8 w-8 text-white/70 animate-bounce" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                  </svg>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
