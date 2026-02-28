@@ -17,10 +17,13 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "@paper-design/shaders-react": "^0.0.71",
+    "@react-three/fiber": "^9.5.0",
+    "@shadergradient/react": "^2.4.20",
     "commander": "^12.1.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "three": "^0.183.2",
     "vaul": "^1.1.2"
   },
   "devDependencies": {

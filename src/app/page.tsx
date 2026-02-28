@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Drawer } from 'vaul';
 import {
   MeshGradient,
@@ -439,6 +439,40 @@ export default function GradientStudio() {
   const [savedGradients, setSavedGradients] = useState<SavedGradient[]>([]);
   const [likedIds, setLikedIds] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<'newest' | 'popular'>('newest');
+  const [isMobile, setIsMobile] = useState(false);
+  const touchStartY = useRef<number | null>(null);
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Touch swipe-up gesture detection
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (touchStartY.current === null || !isMobile) return;
+    
+    const currentY = e.touches[0].clientY;
+    const diff = touchStartY.current - currentY;
+    
+    // Swipe up threshold (50px)
+    if (diff > 50) {
+      setShowcaseOpen(true);
+      touchStartY.current = null;
+    }
+  }, [isMobile]);
+
+  const handleTouchEnd = useCallback(() => {
+    touchStartY.current = null;
+  }, []);
 
   // Load saved data on mount
   useEffect(() => {
@@ -536,7 +570,12 @@ export default function GradientStudio() {
   return (
     <div className="flex h-screen bg-zinc-900 text-white overflow-hidden">
       {/* Shader Preview */}
-      <div className="flex-1 relative">
+      <div 
+        className="flex-1 relative"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <ShaderComponent
           {...params}
           width="100%"
