@@ -997,8 +997,8 @@ export default function GradientStudio() {
         // Left side - open showcase
         setShowcaseOpen(true);
       } else {
-        // Right side - open controls
-        setControlsOpen(true);
+        // Right side - open hamburger menu drawer
+        setIsMobileMenuOpen(true);
       }
       touchStartY.current = null;
       touchStartX.current = null;
@@ -1162,11 +1162,11 @@ export default function GradientStudio() {
                 </div>
               )}
             </div>
-            {/* Right side - Controls */}
+            {/* Right side - Menu */}
             <div className="w-1/2 flex flex-col items-center justify-end pb-8">
-              {!controlsOpen && (
+              {!isMobileMenuOpen && (
                 <div className="flex flex-col items-center gap-2">
-                  <span className="text-xs text-white/70 text-center">Controls</span>
+                  <span className="text-xs text-white/70 text-center">Menu</span>
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
                     className="h-8 w-8 text-white/70 animate-bounce" 
@@ -1183,14 +1183,15 @@ export default function GradientStudio() {
           </div>
         )}
 
-        {/* Mobile Menu Button - visible only on mobile */}
+        {/* Floating Hamburger Menu Button - Bottom Right */}
         <Drawer.Root open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} direction="bottom">
           <Drawer.Trigger asChild>
             <button
-              className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm p-2 rounded-lg hover:bg-black/70 transition-colors md:hidden"
+              className="absolute bottom-6 right-6 bg-black/70 backdrop-blur-sm p-3 rounded-full hover:bg-black/90 transition-colors shadow-lg z-30"
+              aria-label="Open menu"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </Drawer.Trigger>
@@ -1438,17 +1439,6 @@ export default function GradientStudio() {
             </Drawer.Content>
           </Drawer.Portal>
         </Drawer.Root>
-
-        {/* Desktop Toggle Controls Button - hidden on mobile */}
-        <button
-          onClick={() => setShowControls(!showControls)}
-          className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm p-2 rounded-lg hover:bg-black/70 transition-colors hidden md:block"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 066 2.573c.94 1.54300-1.-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </button>
       </div>
 
       {/* Desktop Sidebar - hidden on mobile */}
@@ -1786,223 +1776,6 @@ export default function GradientStudio() {
                   })}
                 </div>
               )}
-            </div>
-          </Drawer.Content>
-        </Drawer.Portal>
-      </Drawer.Root>
-
-      {/* Mobile Controls Drawer - opens from right side via swipe */}
-      <Drawer.Root open={controlsOpen} onOpenChange={setControlsOpen} direction="right">
-        <Drawer.Portal>
-          <Drawer.Overlay className="fixed inset-0 bg-black/50 z-40 md:hidden" />
-          <Drawer.Content className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-sm bg-zinc-800 border-l border-zinc-700 flex flex-col md:hidden">
-            <Drawer.Handle className="mx-auto my-4 h-1 w-12 rounded-full bg-zinc-600" />
-            
-            {/* Controls Header */}
-            <div className="flex items-center justify-between p-4 border-b border-zinc-700">
-              <Drawer.Title className="text-lg font-semibold">Controls</Drawer.Title>
-              <Button variant="ghost" size="icon" onClick={() => setControlsOpen(false)}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </Button>
-            </div>
-
-            {/* Controls Content */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-6">
-              {/* Shader Selector */}
-              <div>
-                <label className="block text-sm font-medium text-zinc-400 mb-2">Shader</label>
-                <Select value={selectedShader} onValueChange={(v) => handleShaderChange(v as ShaderType)}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(shaderConfigs).map(([key, cfg]) => (
-                      <SelectItem key={key} value={key}>{cfg.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Colors Section */}
-              {config.hasColors && (
-                <div>
-                  <label className="block text-sm font-medium text-zinc-400 mb-2">Colors</label>
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {Object.keys(colorPalettes).filter(p => p !== 'custom').map(palette => (
-                      <Button
-                        key={palette}
-                        variant={activePalette === palette ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => handlePaletteChange(palette)}
-                        className="text-xs"
-                      >
-                        {palette}
-                      </Button>
-                    ))}
-                  </div>
-                  <div className="space-y-2">
-                    {params.colors?.map((color: string, index: number) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <input
-                          type="color"
-                          value={color}
-                          onChange={(e) => handleColorChange(index, e.target.value)}
-                          className="w-8 h-8 rounded cursor-pointer border-0"
-                        />
-                        <input
-                          type="text"
-                          value={color}
-                          onChange={(e) => handleColorChange(index, e.target.value)}
-                          className="flex-1 bg-zinc-700 border border-zinc-600 rounded px-2 py-1 text-sm font-mono"
-                        />
-                        {params.colors!.length > 2 && (
-                          <Button variant="ghost" size="sm" onClick={() => removeColor(index)}>×</Button>
-                        )}
-                      </div>
-                    ))}
-                    {params.colors && params.colors.length < 10 && (
-                      <Button variant="outline" size="sm" onClick={addColor} className="w-full">+ Add Color</Button>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Speed Control */}
-              {config.hasSpeed && (
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">Speed: {(params.speed || 0).toFixed(2)}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Slider
-                      value={[params.speed || 0]}
-                      onValueChange={([v]) => updateParam('speed', v)}
-                      min={0}
-                      max={2}
-                      step={0.01}
-                    />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Scale Control */}
-              {config.hasScale && (
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">Scale: {(params.scale || 1).toFixed(2)}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Slider
-                      value={[params.scale || 1]}
-                      onValueChange={([v]) => updateParam('scale', v)}
-                      min={0.1}
-                      max={3}
-                      step={0.01}
-                    />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Distortion Control */}
-              {config.hasDistortion && (
-                <Card>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">Distortion: {(params.distortion || 0).toFixed(2)}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <Slider
-                      value={[params.distortion || 0]}
-                      onValueChange={([v]) => updateParam('distortion', v)}
-                      min={0}
-                      max={1}
-                      step={0.01}
-                    />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Lumina-specific controls */}
-              {config.category === 'lumina' && (
-                <>
-                  {params.noiseStrength !== undefined && (
-                    <Card>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium">Noise: {(params.noiseStrength || 0).toFixed(2)}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <Slider
-                          value={[params.noiseStrength || 0]}
-                          onValueChange={([v]) => updateParam('noiseStrength', v)}
-                          min={0}
-                          max={1}
-                          step={0.01}
-                        />
-                      </CardContent>
-                    </Card>
-                  )}
-                  {params.complexity !== undefined && (
-                    <Card>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium">Complexity: {(params.complexity || 1).toFixed(2)}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <Slider
-                          value={[params.complexity || 1]}
-                          onValueChange={([v]) => updateParam('complexity', v)}
-                          min={0.1}
-                          max={3}
-                          step={0.01}
-                        />
-                      </CardContent>
-                    </Card>
-                  )}
-                </>
-              )}
-
-              {/* WebGL-specific controls */}
-              {config.category === 'webgl' && (
-                <>
-                  {params.noise !== undefined && (
-                    <Card>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium">Noise: {(params.noise || 0).toFixed(2)}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <Slider
-                          value={[params.noise || 0]}
-                          onValueChange={([v]) => updateParam('noise', v)}
-                          min={0}
-                          max={1}
-                          step={0.01}
-                        />
-                      </CardContent>
-                    </Card>
-                  )}
-                  {params.seed !== undefined && (
-                    <Card>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-medium">Seed: {params.seed}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <Slider
-                          value={[params.seed || 0]}
-                          onValueChange={([v]) => updateParam('seed', Math.floor(v))}
-                          min={0}
-                          max={1000}
-                          step={1}
-                        />
-                      </CardContent>
-                    </Card>
-                  )}
-                </>
-              )}
-
-              {/* Reset Button */}
-              <Button variant="outline" onClick={resetParams} className="w-full">
-                Reset to Defaults
-              </Button>
             </div>
           </Drawer.Content>
         </Drawer.Portal>
